@@ -2,10 +2,18 @@ const express = require('express');
 const app = express();
 const path = require('path')
 
+const Rollbar = require('rollbar')
+const rollbar = new Rollbar({
+  accessToken: '37852bc27b674c45b9d53b77a99a1960',
+  captureUncaught: true,
+  captureUnhandledRejections: true,
+})
+
 app.use(express.json())
 
 
 app.get('/', function(req, res) {
+    rollbar.log('Hello World')
     res.sendFile(path.join(__dirname, '/public/index.html')) //dirname current directory working in
 })
 
